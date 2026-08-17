@@ -235,6 +235,50 @@
     margin: -0.3rem 0 0.9rem;
   }
 
+  .venue-map {
+    max-width: 230px;
+    margin: 0.4rem auto 1.1rem;
+  }
+  .venue-map svg { width: 100%; height: auto; display: block; }
+  .venue-map .stage-label {
+    font-family: var(--font-cjk-serif);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    fill: var(--ink-plum-soft);
+    text-anchor: middle;
+  }
+  .venue-map .node circle {
+    fill: #fffdf8;
+    stroke-width: 1.6;
+    opacity: 0.4;
+    transition: opacity 0.3s ease, r 0.3s ease;
+  }
+  .venue-map .node.bride circle { stroke: var(--coral-deep); }
+  .venue-map .node.groom circle { stroke: var(--plum-deep); }
+  .venue-map .node.head circle { stroke: var(--gold-soft); fill: #fdf1d2; }
+  .venue-map .node text {
+    font-family: var(--font-cjk-serif);
+    font-weight: 700;
+    font-size: 9.5px;
+    fill: var(--ink-plum);
+    text-anchor: middle;
+    dominant-baseline: middle;
+    opacity: 0.45;
+    transition: opacity 0.3s ease;
+  }
+  .venue-map .node.active circle {
+    opacity: 1;
+    r: 19;
+    filter: drop-shadow(0 0 5px rgba(184, 80, 47, 0.55));
+  }
+  .venue-map .node.groom.active circle {
+    filter: drop-shadow(0 0 5px rgba(74, 53, 105, 0.55));
+  }
+  .venue-map .node.head.active circle {
+    filter: drop-shadow(0 0 5px rgba(203, 169, 102, 0.65));
+  }
+  .venue-map .node.active text { opacity: 1; }
+
   .not-found {
     text-align: center;
     padding: 1.2rem 1rem;
@@ -374,6 +418,36 @@
       return 'head';
     }
 
+    var MAP_NODES = [
+      { t: '主桌', s: 'head', x: 130, y: 40, r: 17 },
+      { t: '女1', s: 'bride', x: 60, y: 108, r: 15 },
+      { t: '女2', s: 'bride', x: 60, y: 150, r: 15 },
+      { t: '女3', s: 'bride', x: 60, y: 192, r: 15 },
+      { t: '女4', s: 'bride', x: 60, y: 234, r: 15 },
+      { t: '女5', s: 'bride', x: 60, y: 276, r: 15 },
+      { t: '男1', s: 'groom', x: 200, y: 108, r: 15 },
+      { t: '男2', s: 'groom', x: 200, y: 150, r: 15 },
+      { t: '男3', s: 'groom', x: 200, y: 192, r: 15 },
+      { t: '男4', s: 'groom', x: 200, y: 234, r: 15 },
+      { t: '男5', s: 'groom', x: 200, y: 276, r: 15 }
+    ];
+
+    function buildMap(activeTables) {
+      var nodes = MAP_NODES.map(function (n) {
+        var active = activeTables.indexOf(n.t) !== -1;
+        return '<g class="node ' + n.s + (active ? ' active' : '') + '">' +
+          '<circle cx="' + n.x + '" cy="' + n.y + '" r="' + n.r + '"/>' +
+          '<text x="' + n.x + '" y="' + (n.y + 1) + '">' + n.t + '</text>' +
+          '</g>';
+      }).join('');
+      return (
+        '<div class="venue-map" aria-hidden="true"><svg viewBox="0 0 260 320" xmlns="http://www.w3.org/2000/svg">' +
+        '<text class="stage-label" x="130" y="14">迎　賓　‧　舞　台　方　向</text>' +
+        nodes +
+        '</svg></div>'
+      );
+    }
+
     function render(entries) {
       var resultEl = document.getElementById('result');
       resultEl.innerHTML = '';
@@ -386,6 +460,10 @@
         resultEl.appendChild(div);
         return;
       }
+
+      var mapWrap = document.createElement('div');
+      mapWrap.innerHTML = buildMap(entries.map(function (e) { return e.t; }));
+      resultEl.appendChild(mapWrap.firstChild);
 
       if (entries.length > 1) {
         var note = document.createElement('p');
