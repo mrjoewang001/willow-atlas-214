@@ -388,6 +388,66 @@
     font-weight: 700;
   }
 
+  .castle-head-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 1.5rem;
+  }
+  .castle-head-card {
+    width: 100%;
+    max-width: 220px;
+    background: #fffdf8;
+    border: 1.5px solid var(--gold);
+    border-radius: 14px;
+    padding: 0.85rem 0.7rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .castle-head-card .c-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--gold-soft);
+    opacity: 0.9;
+    margin-bottom: 0.1rem;
+  }
+  .castle-head-card .c-badge {
+    font-family: var(--font-cjk-serif);
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 0.15em 0.7em;
+    border-radius: 999px;
+    background: rgba(232, 197, 131, 0.2);
+    color: #8a6a1f;
+  }
+  .castle-head-card .c-cn {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--plum-deep);
+  }
+  .castle-head-card .c-en {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.72rem;
+    color: var(--ink-plum-soft);
+  }
+  .castle-head-card .your-tag {
+    display: none;
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: #8a6a1f;
+  }
+  .castle-head-card.active {
+    border-color: #a97f2c;
+    box-shadow: 0 8px 20px -9px rgba(203, 169, 102, 0.65), 0 0 0 1.5px #a97f2c;
+  }
+  .castle-head-card.active .your-tag { display: block; }
+
   .castle-cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -543,10 +603,23 @@
   </div>
 
   <div class="castle-section" id="castleSection">
-    <span class="castle-eyebrow">迪 士 尼 主 題 桌 名</span>
-    <h2 class="castle-title">每一桌，都是一段迪士尼故事</h2>
-    <p class="castle-desc">我們以不同的迪士尼電影，為婚宴中的每一桌命名。每個桌名，都代表一段陪伴我們走到今天的故事。</p>
+    <span class="castle-eyebrow">婚 宴 桌 次 總 覽</span>
+    <h2 class="castle-title">每一桌，都有屬於自己的故事</h2>
+    <p class="castle-desc">主桌見證兩個家庭在這一天相聚，其餘桌次則以不同的迪士尼電影命名，紀念一路陪伴我們走到今天的家人與朋友。</p>
     <p class="castle-highlight-line" id="castleHighlightLine"></p>
+
+    <div class="castle-head-wrap">
+      <div class="castle-head-card" id="castleHeadCard" data-table="主桌">
+        <span class="your-tag">你的桌次</span>
+        <svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 17 6 9l3.2 3 2.8-5.5 2.8 5.5 3.2-3 2 8H4Z"/>
+          <path d="M4.5 19.3h15"/>
+        </svg>
+        <span class="c-badge">主桌</span>
+        <span class="c-cn">Joe・Gin</span>
+        <span class="c-en">Main Table</span>
+      </div>
+    </div>
 
     <div class="castle-cols">
       <div>
@@ -711,6 +784,7 @@
     var castleBrideList = document.getElementById('castleBrideList');
     var castleGroomList = document.getElementById('castleGroomList');
     var castleSection = document.getElementById('castleSection');
+    var castleHeadCard = document.getElementById('castleHeadCard');
     var castleHighlightLine = document.getElementById('castleHighlightLine');
 
     function buildCastleCard(theme) {
@@ -737,18 +811,24 @@
       document.querySelectorAll('.castle-card.active').forEach(function (el) {
         el.classList.remove('active');
       });
+      castleHeadCard.classList.remove('active');
 
-      var match = CASTLE_THEMES.filter(function (th) { return th.t === entry.t; })[0];
-      if (match) {
-        var card = castleSection.querySelector('.castle-card[data-table="' + entry.t + '"]');
-        if (card) card.classList.add('active');
+      if (entry.t === '主桌') {
+        castleHeadCard.classList.add('active');
         castleHighlightLine.style.display = '';
-        castleHighlightLine.innerHTML =
-          '你所在的「<b>' + tableLabel(entry.t) + '</b>」，主題桌名是《<b>' + match.cn + '</b>》。';
+        castleHighlightLine.innerHTML = '你所在的是「<b>主桌</b>」。';
       } else {
-        // e.g. 主桌: not part of the 10-theme grid, so no card to highlight
-        castleHighlightLine.style.display = 'none';
-        castleHighlightLine.innerHTML = '';
+        var match = CASTLE_THEMES.filter(function (th) { return th.t === entry.t; })[0];
+        if (match) {
+          var card = castleSection.querySelector('.castle-card[data-table="' + entry.t + '"]');
+          if (card) card.classList.add('active');
+          castleHighlightLine.style.display = '';
+          castleHighlightLine.innerHTML =
+            '你所在的「<b>' + tableLabel(entry.t) + '</b>」，主題桌名是《<b>' + match.cn + '</b>》。';
+        } else {
+          castleHighlightLine.style.display = 'none';
+          castleHighlightLine.innerHTML = '';
+        }
       }
 
       castleSection.classList.add('show');
@@ -756,6 +836,7 @@
 
     function hideCastle() {
       castleSection.classList.remove('show');
+      castleHeadCard.classList.remove('active');
       document.querySelectorAll('.castle-card.active').forEach(function (el) {
         el.classList.remove('active');
       });
