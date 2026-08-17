@@ -342,6 +342,154 @@
   }
   .not-found strong { display: block; color: var(--ink-plum); font-size: 1.08rem; margin-bottom: 0.3rem; }
 
+  /* ---------- Castle table overview ---------- */
+
+  .castle-section {
+    margin-top: 2.4rem;
+    display: none;
+  }
+  .castle-section.show { display: block; }
+
+  .castle-eyebrow {
+    display: block;
+    text-align: center;
+    font-family: var(--font-cjk-serif);
+    font-size: 0.8rem;
+    letter-spacing: 0.28em;
+    padding-left: 0.28em;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .castle-title {
+    text-align: center;
+    font-family: var(--font-cjk-serif);
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--page-ivory);
+    margin: 0 0 0.7rem;
+  }
+  .castle-desc {
+    text-align: center;
+    font-size: 0.92rem;
+    color: #ede0c8;
+    max-width: 32em;
+    margin: 0 auto 1rem;
+    line-height: 1.75;
+  }
+  .castle-highlight-line {
+    text-align: center;
+    font-family: var(--font-cjk-serif);
+    font-size: 0.98rem;
+    color: #f1e7d8;
+    margin: 0 0 1.3rem;
+  }
+  .castle-highlight-line b {
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  .castle-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.7rem;
+  }
+  .castle-side-label { text-align: center; margin-bottom: 0.6rem; }
+  .castle-side-label .tag {
+    display: block;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+    color: #d8c6a3;
+    margin-bottom: 0.15rem;
+  }
+  .castle-side-label .name {
+    font-family: var(--font-cjk-serif);
+    font-weight: 700;
+    font-size: 0.98rem;
+  }
+  .castle-side-label.bride .name { color: var(--horizon-coral); }
+  .castle-side-label.groom .name { color: #c9b6e6; }
+
+  .castle-list { display: flex; flex-direction: column; gap: 0.55rem; }
+
+  .castle-card {
+    background: #fffdf8;
+    border: 1.5px solid #ecdcb8;
+    border-radius: 12px;
+    padding: 0.55rem 0.35rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.22rem;
+  }
+  .castle-card .your-tag {
+    display: none;
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+    font-weight: 700;
+    color: var(--coral-deep);
+  }
+  .castle-card.groom .your-tag { color: var(--plum-deep); }
+
+  .castle-card .c-badge {
+    font-family: var(--font-cjk-serif);
+    font-weight: 700;
+    font-size: 0.72rem;
+    padding: 0.15em 0.6em;
+    border-radius: 999px;
+    background: rgba(184, 80, 47, 0.12);
+    color: var(--coral-deep);
+  }
+  .castle-card.groom .c-badge {
+    background: rgba(74, 53, 105, 0.12);
+    color: var(--plum-deep);
+  }
+
+  .castle-card .c-icon-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.22rem;
+  }
+  .castle-card .c-icon {
+    width: 14px;
+    height: 14px;
+    flex: none;
+    color: #c9a86a;
+    opacity: 0.7;
+  }
+  .castle-card .c-cn {
+    font-family: var(--font-cjk-serif);
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--ink-plum);
+    line-height: 1.3;
+  }
+  .castle-card .c-en {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.64rem;
+    color: var(--ink-plum-soft);
+    line-height: 1.2;
+  }
+
+  .castle-card.active {
+    transition: none;
+  }
+  .castle-card.bride.active {
+    border-color: var(--coral-deep);
+    box-shadow: 0 8px 18px -9px rgba(184, 80, 47, 0.6), 0 0 0 1.5px var(--coral-deep);
+  }
+  .castle-card.bride.active .c-badge { background: var(--coral-deep); color: #fff8ec; }
+  .castle-card.bride.active .your-tag { display: block; }
+
+  .castle-card.groom.active {
+    border-color: var(--plum-deep);
+    box-shadow: 0 8px 18px -9px rgba(74, 53, 105, 0.6), 0 0 0 1.5px var(--plum-deep);
+  }
+  .castle-card.groom.active .c-badge { background: var(--plum-deep); color: #fff8ec; }
+  .castle-card.groom.active .your-tag { display: block; }
+
   .footer-links {
     text-align: center;
     margin-top: 2.2rem;
@@ -391,6 +539,30 @@
       <svg viewBox="0 0 260 320" xmlns="http://www.w3.org/2000/svg" id="mapSvg">
         <text class="stage-label" x="130" y="14">舞　台　方　向</text>
       </svg>
+    </div>
+  </div>
+
+  <div class="castle-section" id="castleSection">
+    <span class="castle-eyebrow">迪 士 尼 主 題 桌 名</span>
+    <h2 class="castle-title">每一桌，都是一段迪士尼故事</h2>
+    <p class="castle-desc">我們以不同的迪士尼電影，為婚宴中的每一桌命名。每個桌名，都代表一段陪伴我們走到今天的故事。</p>
+    <p class="castle-highlight-line" id="castleHighlightLine"></p>
+
+    <div class="castle-cols">
+      <div>
+        <div class="castle-side-label bride">
+          <span class="tag">女方桌次</span>
+          <span class="name">京汝親友席</span>
+        </div>
+        <div class="castle-list" id="castleBrideList"></div>
+      </div>
+      <div>
+        <div class="castle-side-label groom">
+          <span class="tag">男方桌次</span>
+          <span class="name">振伊親友席</span>
+        </div>
+        <div class="castle-list" id="castleGroomList"></div>
+      </div>
     </div>
   </div>
 
@@ -513,6 +685,82 @@
       svg.innerHTML = '<text class="stage-label" x="130" y="14">舞　台　方　向</text>' + nodesHtml;
     }
 
+    var CASTLE_THEMES = [
+      { t: '女1', s: 'bride', cn: '花木蘭', en: 'Mulan',
+        icon: '<path d="M12 3.2v13.6"/><path d="M9.3 6.2 12 3.2l2.7 3"/><path d="M8.4 15.2h7.2"/><path d="M12 16.8v3.4"/><circle cx="12" cy="21" r="1"/>' },
+      { t: '女2', s: 'bride', cn: '冰雪奇緣', en: 'Frozen',
+        icon: '<line x1="12" y1="3" x2="12" y2="21"/><line x1="4.4" y1="7.5" x2="19.6" y2="16.5"/><line x1="4.4" y1="16.5" x2="19.6" y2="7.5"/><path d="M12 6.4 10 7.6M12 6.4l2 1.2M12 17.6l-2-1.2M12 17.6l2-1.2"/>' },
+      { t: '女3', s: 'bride', cn: '小美人魚', en: 'The Little Mermaid',
+        icon: '<path d="M12 20c-4 0-6.8-2.5-6.8-6.3C5.2 9 8.2 4.2 12 4.2S18.8 9 18.8 13.7c0 3.8-2.8 6.3-6.8 6.3Z"/><path d="M12 20V6.5M9.3 19 10.2 7M14.7 19 13.8 7M6.9 17 9.6 6M17.1 17 14.4 6"/>' },
+      { t: '女4', s: 'bride', cn: '長髮公主', en: 'Tangled',
+        icon: '<path d="M12 3v2"/><path d="M9 5h6l1.2 2.6H7.8L9 5Z"/><path d="M8.1 7.6h7.8l0.9 7.7a3.1 3.1 0 0 1-3.1 3.4h-3.4a3.1 3.1 0 0 1-3.1-3.4l0.9-7.7Z"/><path d="M12 18.7v2.3"/>' },
+      { t: '女5', s: 'bride', cn: '動物方城市', en: 'Zootopia',
+        icon: '<circle cx="12" cy="15.3" r="4.1"/><circle cx="6.8" cy="9.6" r="1.6"/><circle cx="10.6" cy="6.4" r="1.6"/><circle cx="14.4" cy="6.6" r="1.6"/><circle cx="17.6" cy="10.1" r="1.6"/>' },
+      { t: '男1', s: 'groom', cn: '玩具總動員', en: 'Toy Story',
+        icon: '<path d="M12 3 14.12 9.09 20.56 9.22 15.42 13.11 17.29 19.28 12 15.6 6.71 19.28 8.58 13.11 3.44 9.22 7.88 9.09Z"/>' },
+      { t: '男2', s: 'groom', cn: '阿拉丁', en: 'Aladdin',
+        icon: '<path d="M3.2 16.2c0-1.6 1.4-2.7 3.1-2.7h2.4c.3-1.7 1.8-3 3.6-3 .4 0 .9-.1 1.3-.3-.5-.4-.9-1-.9-1.7 0-1.2 1-2.1 2.1-2.1s2.1.9 2.1 2.1c0 .5-.2.9-.4 1.3.7.5 1.4 1.3 1.4 2.2v.4c1.6.2 2.9 1.2 2.9 2.5 0 1.4-1.5 2.5-3.5 2.5H6.7c-1.9 0-3.5-1.1-3.5-2.2Z"/><path d="M17.6 9.3c1 0 1.9-.6 2.3-1.4"/>' },
+      { t: '男3', s: 'groom', cn: '怪獸電力公司', en: 'Monsters, Inc.',
+        icon: '<rect x="7" y="3.5" width="10" height="16.5" rx="1.2"/><circle cx="14.3" cy="12" r="0.9" fill="currentColor" stroke="none"/>' },
+      { t: '男4', s: 'groom', cn: '小飛俠', en: 'Peter Pan',
+        icon: '<path d="M7 5.5 8 8.5 11 9.5 8 10.5 7 13.5 6 10.5 3 9.5 6 8.5Z"/><path d="M16.5 4 17.2 6 19.2 6.7 17.2 7.4 16.5 9.4 15.8 7.4 13.8 6.7 15.8 6Z"/><path d="M14.5 13.5 15.3 16 17.8 16.8 15.3 17.6 14.5 20.1 13.7 17.6 11.2 16.8 13.7 16Z"/>' },
+      { t: '男5', s: 'groom', cn: '超人特攻隊', en: 'The Incredibles',
+        icon: '<path d="M12 3.3 19 6.2v5.8c0 4.6-3 7.7-7 8.7-4-1-7-4.1-7-8.7V6.2L12 3.3Z"/>' }
+    ];
+
+    var castleBrideList = document.getElementById('castleBrideList');
+    var castleGroomList = document.getElementById('castleGroomList');
+    var castleSection = document.getElementById('castleSection');
+    var castleHighlightLine = document.getElementById('castleHighlightLine');
+
+    function buildCastleCard(theme) {
+      var card = document.createElement('div');
+      card.className = 'castle-card ' + theme.s;
+      card.dataset.table = theme.t;
+      card.innerHTML =
+        '<span class="your-tag">你的桌次</span>' +
+        '<span class="c-badge">' + theme.t + '</span>' +
+        '<span class="c-icon-row">' +
+        '<svg class="c-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + theme.icon + '</svg>' +
+        '<span class="c-cn">' + theme.cn + '</span>' +
+        '</span>' +
+        '<span class="c-en">' + theme.en + '</span>';
+      return card;
+    }
+
+    CASTLE_THEMES.forEach(function (theme) {
+      var card = buildCastleCard(theme);
+      (theme.s === 'bride' ? castleBrideList : castleGroomList).appendChild(card);
+    });
+
+    function renderCastle(entry) {
+      document.querySelectorAll('.castle-card.active').forEach(function (el) {
+        el.classList.remove('active');
+      });
+
+      var match = CASTLE_THEMES.filter(function (th) { return th.t === entry.t; })[0];
+      if (match) {
+        var card = castleSection.querySelector('.castle-card[data-table="' + entry.t + '"]');
+        if (card) card.classList.add('active');
+        castleHighlightLine.style.display = '';
+        castleHighlightLine.innerHTML =
+          '你所在的「<b>' + tableLabel(entry.t) + '</b>」，主題桌名是《<b>' + match.cn + '</b>》。';
+      } else {
+        // e.g. 主桌: not part of the 10-theme grid, so no card to highlight
+        castleHighlightLine.style.display = 'none';
+        castleHighlightLine.innerHTML = '';
+      }
+
+      castleSection.classList.add('show');
+    }
+
+    function hideCastle() {
+      castleSection.classList.remove('show');
+      document.querySelectorAll('.castle-card.active').forEach(function (el) {
+        el.classList.remove('active');
+      });
+    }
+
     var phoneInput = document.getElementById('phone6');
     var goBtn = document.getElementById('goBtn');
     var inlineHint = document.getElementById('inlineHint');
@@ -553,6 +801,7 @@
 
       renderMap(entry.t);
       mapSection.classList.add('show');
+      renderCastle(entry);
     }
 
     function showMessage(strongText, bodyHtml) {
@@ -561,6 +810,7 @@
       box.innerHTML = '<strong>' + strongText + '</strong>' + bodyHtml;
       resultEl.appendChild(box);
       mapSection.classList.remove('show');
+      hideCastle();
     }
 
     function render(entries) {
@@ -593,6 +843,7 @@
       resultEl.classList.remove('show');
       resultEl.innerHTML = '';
       mapSection.classList.remove('show');
+      hideCastle();
       phoneInput.value = '';
       goBtn.disabled = true;
       inlineHint.textContent = '';
