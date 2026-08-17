@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>婚宴座位查詢</title>
-<meta name="description" content="輸入手機末6碼，查詢你的桌次" />
+<title>婚宴桌次查詢</title>
+<meta name="description" content="輸入手機末6碼，查詢你的婚宴桌次" />
 <meta name="robots" content="noindex, nofollow" />
 </head>
 <body>
@@ -72,11 +72,7 @@
     z-index: 1;
     max-width: var(--content-w);
     margin: 0 auto;
-    padding: 3.2rem 1.6rem 3rem;
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding: 3rem 1.6rem 3rem;
   }
 
   .eyebrow {
@@ -104,9 +100,9 @@
 
   .sub {
     text-align: center;
-    font-size: 1.05rem;
+    font-size: 1.08rem;
     color: #f1e7d8;
-    margin: 0 0 2.4rem;
+    margin: 0 0 2rem;
   }
 
   .card {
@@ -119,7 +115,8 @@
   form { display: flex; flex-direction: column; gap: 1rem; }
 
   label {
-    font-size: 0.92rem;
+    font-size: 0.96rem;
+    font-weight: 600;
     color: var(--ink-plum-soft);
     text-align: center;
   }
@@ -143,24 +140,41 @@
   }
   input[type="tel"]::placeholder {
     color: #d8c6a3;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.08em;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
   }
 
   button.go {
     font-family: var(--font-body);
-    font-size: 1.06rem;
-    font-weight: 600;
+    font-size: 1.08rem;
+    font-weight: 700;
     background: var(--horizon-coral);
     color: #2b1a17;
     border: none;
     border-radius: 999px;
-    padding: 0.85em 1.5em;
+    padding: 0.95em 1.5em;
+    min-height: 52px;
     cursor: pointer;
-    transition: transform 0.15s ease;
+    transition: transform 0.15s ease, opacity 0.2s ease;
   }
-  button.go:active { transform: scale(0.97); }
+  button.go:active:not(:disabled) { transform: scale(0.97); }
+  button.go:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
 
   :focus-visible { outline: 2px solid var(--coral-deep); outline-offset: 3px; }
+
+  .inline-hint {
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--coral-deep);
+    margin: -0.2rem 0 0;
+    min-height: 1.3em;
+  }
+
+  /* ---------- Result card ---------- */
 
   .result {
     margin-top: 1.6rem;
@@ -171,113 +185,153 @@
   .ticket {
     border: 1px solid #ecdcb8;
     border-radius: 16px;
-    padding: 1.6rem 1.4rem;
+    padding: 1.7rem 1.4rem 1.5rem;
     text-align: center;
     background: linear-gradient(160deg, #fffaf0, #f2e0b3);
-    margin-bottom: 0.9rem;
     opacity: 0;
     transform: translateY(10px) scale(0.98);
     transition: opacity 0.45s ease, transform 0.45s ease;
   }
   .ticket.in { opacity: 1; transform: translateY(0) scale(1); }
 
-  .ticket .badge {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 58px;
-    height: 58px;
-    padding: 0 0.7rem;
-    border-radius: 999px;
+  .ticket .eyebrow-label {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.86rem;
+    letter-spacing: 0.15em;
+    color: var(--ink-plum-soft);
+    margin-bottom: 0.5rem;
+  }
+
+  .ticket .table-num {
     font-family: var(--font-cjk-serif);
     font-weight: 700;
-    font-size: 1.5rem;
-    color: #fff8ec;
-    margin-bottom: 0.9rem;
+    font-size: clamp(2.1rem, 12vw, 2.7rem);
+    line-height: 1.1;
+    color: var(--coral-deep);
   }
-  .ticket.bride .badge { background: var(--coral-deep); }
-  .ticket.groom .badge { background: var(--plum-deep); }
-  .ticket.head .badge { background: var(--gold-soft); color: #3a2c12; }
+  .ticket.groom .table-num { color: var(--plum-deep); }
+  .ticket.head .table-num { color: #8a6a1f; }
 
-  .ticket .theme {
+  .ticket .theme-label {
+    display: block;
+    font-size: 0.86rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-plum-soft);
+    margin: 1.1rem 0 0.3rem;
+  }
+  .ticket .theme-name {
     font-family: var(--font-cjk-serif);
     font-weight: 700;
     font-size: 1.5rem;
     color: var(--ink-plum);
   }
-  .ticket .zone {
-    display: inline-block;
-    margin-top: 0.5rem;
-    font-size: 0.9rem;
-    padding: 0.2em 0.9em;
-    border-radius: 999px;
+
+  .ticket .find-note {
+    margin-top: 1.2rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #e0cda0;
+    font-size: 1rem;
+    color: var(--ink-plum);
   }
-  .ticket.bride .zone {
-    background: rgba(184, 80, 47, 0.1);
-    color: var(--coral-deep);
-    border: 1px solid rgba(184, 80, 47, 0.35);
-  }
-  .ticket.groom .zone {
-    background: rgba(74, 53, 105, 0.1);
-    color: var(--plum-deep);
-    border: 1px solid rgba(74, 53, 105, 0.35);
-  }
-  .ticket.head .zone {
-    background: rgba(203, 169, 102, 0.15);
-    color: #8a6a1f;
-    border: 1px solid rgba(203, 169, 102, 0.45);
+  .ticket .find-note b { color: var(--coral-deep); }
+  .ticket.groom .find-note b { color: var(--plum-deep); }
+
+  .retry-btn {
+    display: block;
+    margin: 1.1rem auto 0;
+    background: none;
+    border: none;
+    font-family: var(--font-body);
+    font-size: 0.98rem;
+    color: var(--ink-plum-soft);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+    padding: 0.6em 1em;
+    min-height: 44px;
   }
 
-  .multi-note {
-    font-size: 0.88rem;
-    color: var(--ink-plum-soft);
+  /* ---------- Not-found / multi-match messages ---------- */
+
+  .msg-box {
     text-align: center;
-    margin: -0.3rem 0 0.9rem;
+    padding: 1.3rem 1.1rem;
+    color: var(--ink-plum-soft);
+    font-size: 1rem;
+    line-height: 1.85;
+    background: #fbf3e0;
+    border: 1px solid #ecdcb8;
+    border-radius: 14px;
+  }
+  .msg-box strong {
+    display: block;
+    color: var(--coral-deep);
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+  .msg-box a { color: var(--coral-deep); font-weight: 600; }
+
+  /* ---------- Venue map section ---------- */
+
+  .map-section {
+    margin-top: 2.2rem;
+    display: none;
+  }
+  .map-section.show { display: block; }
+  .map-section h2 {
+    text-align: center;
+    font-family: var(--font-cjk-serif);
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    margin: 0 0 1rem;
   }
 
   .venue-map {
-    max-width: 230px;
-    margin: 0.4rem auto 1.1rem;
+    max-width: 260px;
+    margin: 0 auto;
   }
   .venue-map svg { width: 100%; height: auto; display: block; }
   .venue-map .stage-label {
     font-family: var(--font-cjk-serif);
-    font-size: 10px;
+    font-size: 10.5px;
     letter-spacing: 0.12em;
-    fill: var(--ink-plum-soft);
+    fill: #ede2c8;
     text-anchor: middle;
   }
   .venue-map .node circle {
-    fill: #fffdf8;
+    fill: rgba(255, 255, 255, 0.06);
     stroke-width: 1.6;
-    opacity: 0.4;
+    opacity: 0.62;
     transition: opacity 0.3s ease, r 0.3s ease;
   }
-  .venue-map .node.bride circle { stroke: var(--coral-deep); }
-  .venue-map .node.groom circle { stroke: var(--plum-deep); }
-  .venue-map .node.head circle { stroke: var(--gold-soft); fill: #fdf1d2; }
+  .venue-map .node.bride circle { stroke: var(--horizon-coral); }
+  .venue-map .node.groom circle { stroke: #c9b6e6; }
+  .venue-map .node.head circle { stroke: var(--gold); fill: rgba(232, 197, 131, 0.14); }
   .venue-map .node text {
     font-family: var(--font-cjk-serif);
     font-weight: 700;
-    font-size: 9.5px;
-    fill: var(--ink-plum);
+    font-size: 10px;
+    fill: #f5ead2;
     text-anchor: middle;
     dominant-baseline: middle;
-    opacity: 0.45;
-    transition: opacity 0.3s ease;
+    opacity: 0.75;
+    transition: opacity 0.3s ease, fill 0.3s ease;
   }
   .venue-map .node.active circle {
+    fill: rgba(255, 145, 105, 0.18);
+    stroke: var(--horizon-coral);
+    stroke-width: 2.4;
     opacity: 1;
     r: 19;
-    filter: drop-shadow(0 0 5px rgba(184, 80, 47, 0.55));
+    filter: drop-shadow(0 0 6px rgba(255, 145, 105, 0.65));
   }
-  .venue-map .node.groom.active circle {
-    filter: drop-shadow(0 0 5px rgba(74, 53, 105, 0.55));
+  .venue-map .node.active text {
+    opacity: 1;
+    fill: #fff3e4;
   }
-  .venue-map .node.head.active circle {
-    filter: drop-shadow(0 0 5px rgba(203, 169, 102, 0.65));
-  }
-  .venue-map .node.active text { opacity: 1; }
 
   .not-found {
     text-align: center;
@@ -291,7 +345,7 @@
   .footer-links {
     text-align: center;
     margin-top: 2.2rem;
-    font-size: 0.92rem;
+    font-size: 0.94rem;
     color: var(--gold-soft);
   }
   .footer-links a {
@@ -315,23 +369,33 @@
 <canvas class="stars" id="starsBg"></canvas>
 
 <div class="wrap">
-  <span class="eyebrow">婚 宴 座 位 查 詢</span>
-  <h1>找到你的座位</h1>
-  <p class="sub">輸入手機末6碼，查詢你的桌次</p>
+  <span class="eyebrow">婚 宴 桌 次 查 詢</span>
+  <h1>找到你的桌次</h1>
+  <p class="sub">輸入手機末6碼，查詢你的婚宴桌次</p>
 
   <div class="card" data-reveal>
-    <form id="searchForm" autocomplete="off">
+    <form id="searchForm" autocomplete="off" novalidate>
       <label for="phone6">手機末6碼</label>
       <input type="tel" id="phone6" name="phone6" inputmode="numeric" pattern="[0-9]*"
-             maxlength="6" placeholder="000000" required />
-      <button type="submit" class="go">查　詢</button>
+             maxlength="6" placeholder="請輸入6位數字" required />
+      <p class="inline-hint" id="inlineHint" aria-live="polite"></p>
+      <button type="submit" class="go" id="goBtn" disabled>查詢桌次</button>
     </form>
 
     <div class="result" id="result"></div>
   </div>
 
+  <div class="map-section" id="mapSection">
+    <h2>桌次位置圖</h2>
+    <div class="venue-map" aria-hidden="true">
+      <svg viewBox="0 0 260 320" xmlns="http://www.w3.org/2000/svg" id="mapSvg">
+        <text class="stage-label" x="130" y="14">舞　台　方　向</text>
+      </svg>
+    </div>
+  </div>
+
   <p class="footer-links">
-    查不到桌次嗎？歡迎透過 LINE 聯繫我們<br />
+    查不到桌次嗎？歡迎透過 <a href="https://lin.ee/sb76LiR" target="_blank" rel="noopener">LINE 官方帳號</a> 聯繫我們<br />
     想先看看整體桌次主題，可以<a href="https://claude.ai/code/artifact/59da4a40-264f-4a07-be5b-80415669c5bb" target="_blank" rel="noopener">點這裡</a>
   </p>
 </div>
@@ -418,76 +482,137 @@
       return 'head';
     }
 
+    // "主桌" stays "主桌"; every other code gets a "桌" suffix, e.g. "女4桌".
+    function tableLabel(t) {
+      return t === '主桌' ? '主桌' : t + '桌';
+    }
+
     var MAP_NODES = [
-      { t: '主桌', s: 'head', x: 130, y: 40, r: 17 },
-      { t: '女1', s: 'bride', x: 60, y: 108, r: 15 },
-      { t: '女2', s: 'bride', x: 60, y: 150, r: 15 },
-      { t: '女3', s: 'bride', x: 60, y: 192, r: 15 },
-      { t: '女4', s: 'bride', x: 60, y: 234, r: 15 },
-      { t: '女5', s: 'bride', x: 60, y: 276, r: 15 },
-      { t: '男1', s: 'groom', x: 200, y: 108, r: 15 },
-      { t: '男2', s: 'groom', x: 200, y: 150, r: 15 },
-      { t: '男3', s: 'groom', x: 200, y: 192, r: 15 },
-      { t: '男4', s: 'groom', x: 200, y: 234, r: 15 },
-      { t: '男5', s: 'groom', x: 200, y: 276, r: 15 }
+      { t: '主桌', s: 'head', x: 130, y: 42, r: 17 },
+      { t: '女1', s: 'bride', x: 58, y: 110, r: 15 },
+      { t: '女2', s: 'bride', x: 58, y: 152, r: 15 },
+      { t: '女3', s: 'bride', x: 58, y: 194, r: 15 },
+      { t: '女4', s: 'bride', x: 58, y: 236, r: 15 },
+      { t: '女5', s: 'bride', x: 58, y: 278, r: 15 },
+      { t: '男1', s: 'groom', x: 202, y: 110, r: 15 },
+      { t: '男2', s: 'groom', x: 202, y: 152, r: 15 },
+      { t: '男3', s: 'groom', x: 202, y: 194, r: 15 },
+      { t: '男4', s: 'groom', x: 202, y: 236, r: 15 },
+      { t: '男5', s: 'groom', x: 202, y: 278, r: 15 }
     ];
 
-    function buildMap(activeTables) {
-      var nodes = MAP_NODES.map(function (n) {
-        var active = activeTables.indexOf(n.t) !== -1;
+    function renderMap(activeTable) {
+      var svg = document.getElementById('mapSvg');
+      var nodesHtml = MAP_NODES.map(function (n) {
+        var active = n.t === activeTable;
         return '<g class="node ' + n.s + (active ? ' active' : '') + '">' +
           '<circle cx="' + n.x + '" cy="' + n.y + '" r="' + n.r + '"/>' +
           '<text x="' + n.x + '" y="' + (n.y + 1) + '">' + n.t + '</text>' +
           '</g>';
       }).join('');
-      return (
-        '<div class="venue-map" aria-hidden="true"><svg viewBox="0 0 260 320" xmlns="http://www.w3.org/2000/svg">' +
-        '<text class="stage-label" x="130" y="14">迎　賓　‧　舞　台　方　向</text>' +
-        nodes +
-        '</svg></div>'
-      );
+      svg.innerHTML = '<text class="stage-label" x="130" y="14">舞　台　方　向</text>' + nodesHtml;
+    }
+
+    var phoneInput = document.getElementById('phone6');
+    var goBtn = document.getElementById('goBtn');
+    var inlineHint = document.getElementById('inlineHint');
+    var resultEl = document.getElementById('result');
+    var mapSection = document.getElementById('mapSection');
+
+    // 1) digits only, 2) max 6 chars, 6) button enabled only at exactly 6 digits
+    phoneInput.addEventListener('input', function () {
+      var digits = phoneInput.value.replace(/\D/g, '').slice(0, 6);
+      phoneInput.value = digits;
+      goBtn.disabled = digits.length !== 6;
+      inlineHint.textContent = '';
+    });
+
+    function showTicket(entry) {
+      var t = document.createElement('div');
+      t.className = 'ticket ' + sideClass(entry.s);
+      var themeBlock = entry.th
+        ? '<span class="theme-label">迪士尼主題桌名</span><div class="theme-name">' + entry.th + '</div>'
+        : '';
+      var findText = entry.th
+        ? '婚宴當天請尋找「<b>' + tableLabel(entry.t) + '・' + entry.th + '</b>」桌牌'
+        : '婚宴當天請尋找「<b>' + tableLabel(entry.t) + '</b>」桌牌';
+      t.innerHTML =
+        '<span class="eyebrow-label">您的桌次</span>' +
+        '<div class="table-num">' + tableLabel(entry.t) + '</div>' +
+        themeBlock +
+        '<div class="find-note">' + findText + '</div>';
+      resultEl.appendChild(t);
+      setTimeout(function () { t.classList.add('in'); }, 40);
+
+      var retry = document.createElement('button');
+      retry.type = 'button';
+      retry.className = 'retry-btn';
+      retry.textContent = '重新查詢';
+      retry.addEventListener('click', resetSearch);
+      resultEl.appendChild(retry);
+
+      renderMap(entry.t);
+      mapSection.classList.add('show');
+    }
+
+    function showMessage(strongText, bodyHtml) {
+      var box = document.createElement('div');
+      box.className = 'msg-box';
+      box.innerHTML = '<strong>' + strongText + '</strong>' + bodyHtml;
+      resultEl.appendChild(box);
+      mapSection.classList.remove('show');
     }
 
     function render(entries) {
-      var resultEl = document.getElementById('result');
       resultEl.innerHTML = '';
       resultEl.classList.add('show');
 
       if (!entries || entries.length === 0) {
-        var div = document.createElement('div');
-        div.className = 'not-found';
-        div.innerHTML = '<strong>查無這組末6碼</strong>請確認輸入的號碼是否正確，或透過 LINE 官方帳號聯繫我們，我們幫你確認座位';
-        resultEl.appendChild(div);
+        showMessage(
+          '找不到符合的桌次',
+          '請確認輸入的是「回覆出席時所登記的手機末6碼」。<br />' +
+          '如果當時由親友代為回覆，請輸入該位聯絡人的手機末6碼。<br />' +
+          '仍然查不到嗎？歡迎透過 <a href="https://lin.ee/sb76LiR" target="_blank" rel="noopener">LINE</a> 聯絡我們協助確認。'
+        );
         return;
       }
 
-      var mapWrap = document.createElement('div');
-      mapWrap.innerHTML = buildMap(entries.map(function (e) { return e.t; }));
-      resultEl.appendChild(mapWrap.firstChild);
-
       if (entries.length > 1) {
-        var note = document.createElement('p');
-        note.className = 'multi-note';
-        note.textContent = '這組電話對應到不只一桌，可能是同一家庭分坐不同桌，請確認以下哪一桌是你要找的人';
-        resultEl.appendChild(note);
+        showMessage(
+          '有多筆符合資料',
+          '請透過 <a href="https://lin.ee/sb76LiR" target="_blank" rel="noopener">LINE</a> 聯絡我們協助確認。'
+        );
+        return;
       }
 
-      entries.forEach(function (e, i) {
-        var t = document.createElement('div');
-        t.className = 'ticket ' + sideClass(e.s);
-        t.innerHTML =
-          '<div class="badge">' + e.t + '</div>' +
-          '<div class="theme">' + e.th + '</div>' +
-          '<div class="zone">' + e.s + '</div>';
-        resultEl.appendChild(t);
-        setTimeout(function () { t.classList.add('in'); }, 40 + i * 120);
-      });
+      showTicket(entries[0]);
+      resultEl.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    }
+
+    function resetSearch() {
+      resultEl.classList.remove('show');
+      resultEl.innerHTML = '';
+      mapSection.classList.remove('show');
+      phoneInput.value = '';
+      goBtn.disabled = true;
+      inlineHint.textContent = '';
+      phoneInput.focus();
     }
 
     document.getElementById('searchForm').addEventListener('submit', function (e) {
       e.preventDefault();
-      var v = document.getElementById('phone6').value.trim();
-      render(DATA[v]);
+      var v = phoneInput.value;
+      if (v.length !== 6) {
+        inlineHint.textContent = '請輸入完整的 6 位數字';
+        return;
+      }
+      goBtn.disabled = true;
+      goBtn.textContent = '查詢中…';
+      setTimeout(function () {
+        render(DATA[v]);
+        goBtn.textContent = '查詢桌次';
+        goBtn.disabled = v.length !== 6;
+      }, 260);
     });
 
     if ('IntersectionObserver' in window) {
