@@ -271,6 +271,11 @@
     margin-bottom: 0.5rem;
   }
   .msg-box a { color: var(--coral-deep); font-weight: 600; }
+  .msg-box .msg-body {
+    text-wrap: balance;
+    margin: 0 0 0.7rem;
+  }
+  .msg-box .msg-body:last-child { margin-bottom: 0; }
 
   /* ---------- Venue map section ---------- */
 
@@ -901,9 +906,9 @@
       if (!entries || entries.length === 0) {
         showMessage(
           '找不到符合的桌次',
-          '請確認輸入的是「回覆出席時所登記的手機末6碼」。<br />' +
-          '如果當時由親友代為回覆，請輸入該位聯絡人的手機末6碼。<br />' +
-          '仍然查不到嗎？歡迎透過 <a href="https://lin.ee/sb76LiR" target="_blank" rel="noopener">LINE</a> 聯絡我們協助確認。'
+          '<p class="msg-body">請確認輸入的是「回覆出席時所登記的手機末6碼」。</p>' +
+          '<p class="msg-body">如果當時由親友代為回覆，請輸入該位聯絡人的手機末6碼。</p>' +
+          '<p class="msg-body">仍然查不到嗎？歡迎透過 <a href="https://lin.ee/sb76LiR" target="_blank" rel="noopener">LINE</a> 聯絡我們協助確認。</p>'
         );
         return;
       }
@@ -911,7 +916,7 @@
       if (entries.length > 1) {
         showMessage(
           '有多筆符合資料',
-          '請透過 <a href="https://lin.ee/sb76LiR" target="_blank" rel="noopener">LINE</a> 聯絡我們協助確認。'
+          '<p class="msg-body">請透過 <a href="https://lin.ee/sb76LiR" target="_blank" rel="noopener">LINE</a> 聯絡我們協助確認。</p>'
         );
         return;
       }
