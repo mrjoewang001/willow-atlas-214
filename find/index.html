@@ -294,24 +294,17 @@
   }
   .castle-section.show { display: block; }
 
-  .castle-stage-hint {
-    display: block;
+  .castle-section-title {
     text-align: center;
     font-family: var(--font-cjk-serif);
-    font-size: 0.7rem;
-    letter-spacing: 0.12em;
-    color: #d8c6a3;
-    margin-bottom: 0.6rem;
-  }
-  .castle-eyebrow {
-    display: block;
-    text-align: center;
-    font-family: var(--font-cjk-serif);
-    font-size: 0.8rem;
-    letter-spacing: 0.28em;
-    padding-left: 0.28em;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 7vw, 1.9rem);
+    letter-spacing: 0.06em;
+    margin: 0 0 0.8rem;
+    background: linear-gradient(180deg, #fff6e6, var(--gold) 70%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .castle-title {
     text-align: center;
@@ -339,6 +332,37 @@
   .castle-highlight-line b {
     color: var(--gold);
     font-weight: 700;
+  }
+
+  .stage-graphic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin: 0 0 0.9rem;
+  }
+  .stage-graphic .stage-bar {
+    width: 130px;
+    height: 14px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, transparent, var(--gold) 12%, #fff3d6 50%, var(--gold) 88%, transparent);
+    box-shadow: 0 0 14px 2px rgba(232, 197, 131, 0.55);
+  }
+  .stage-graphic .stage-label {
+    font-family: var(--font-cjk-serif);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    padding-left: 0.2em;
+    color: #fff3d6;
+  }
+  .stage-graphic .stage-arrow {
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-top: 9px solid var(--gold-soft);
+    opacity: 0.85;
   }
 
   .castle-head-wrap {
@@ -549,11 +573,16 @@
   </div>
 
   <div class="castle-section" id="castleSection">
-    <span class="castle-stage-hint">舞　台　方　向</span>
-    <span class="castle-eyebrow">婚 宴 桌 次 總 覽</span>
-    <h2 class="castle-title">每一桌，都有屬於自己的故事</h2>
+    <h2 class="castle-section-title">婚宴桌次圖</h2>
+    <h3 class="castle-title">每一桌，都有屬於自己的故事</h3>
     <p class="castle-desc">主桌見證兩個家庭在這一天相聚，其餘桌次則以不同的迪士尼電影命名，紀念一路陪伴我們走到今天的家人與朋友。</p>
     <p class="castle-highlight-line" id="castleHighlightLine"></p>
+
+    <div class="stage-graphic" aria-hidden="true">
+      <div class="stage-bar"></div>
+      <span class="stage-label">舞台方向</span>
+      <div class="stage-arrow"></div>
+    </div>
 
     <div class="castle-head-wrap">
       <div class="castle-head-card" id="castleHeadCard" data-table="主桌">
