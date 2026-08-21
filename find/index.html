@@ -277,67 +277,6 @@
   }
   .msg-box .msg-body:last-child { margin-bottom: 0; }
 
-  /* ---------- Venue map section ---------- */
-
-  .map-section {
-    margin-top: 2.2rem;
-    display: none;
-  }
-  .map-section.show { display: block; }
-  .map-section h2 {
-    text-align: center;
-    font-family: var(--font-cjk-serif);
-    font-weight: 700;
-    font-size: 1.15rem;
-    letter-spacing: 0.1em;
-    color: var(--gold);
-    margin: 0 0 1rem;
-  }
-
-  .venue-map {
-    max-width: 260px;
-    margin: 0 auto;
-  }
-  .venue-map svg { width: 100%; height: auto; display: block; }
-  .venue-map .stage-label {
-    font-family: var(--font-cjk-serif);
-    font-size: 10.5px;
-    letter-spacing: 0.12em;
-    fill: #ede2c8;
-    text-anchor: middle;
-  }
-  .venue-map .node circle {
-    fill: rgba(255, 255, 255, 0.06);
-    stroke-width: 1.6;
-    opacity: 0.62;
-    transition: opacity 0.3s ease, r 0.3s ease;
-  }
-  .venue-map .node.bride circle { stroke: var(--horizon-coral); }
-  .venue-map .node.groom circle { stroke: #c9b6e6; }
-  .venue-map .node.head circle { stroke: var(--gold); fill: rgba(232, 197, 131, 0.14); }
-  .venue-map .node text {
-    font-family: var(--font-cjk-serif);
-    font-weight: 700;
-    font-size: 10px;
-    fill: #f5ead2;
-    text-anchor: middle;
-    dominant-baseline: middle;
-    opacity: 0.75;
-    transition: opacity 0.3s ease, fill 0.3s ease;
-  }
-  .venue-map .node.active circle {
-    fill: rgba(255, 145, 105, 0.18);
-    stroke: var(--horizon-coral);
-    stroke-width: 2.4;
-    opacity: 1;
-    r: 19;
-    filter: drop-shadow(0 0 6px rgba(255, 145, 105, 0.65));
-  }
-  .venue-map .node.active text {
-    opacity: 1;
-    fill: #fff3e4;
-  }
-
   .not-found {
     text-align: center;
     padding: 1.2rem 1rem;
@@ -355,6 +294,15 @@
   }
   .castle-section.show { display: block; }
 
+  .castle-stage-hint {
+    display: block;
+    text-align: center;
+    font-family: var(--font-cjk-serif);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    color: #d8c6a3;
+    margin-bottom: 0.6rem;
+  }
   .castle-eyebrow {
     display: block;
     text-align: center;
@@ -600,16 +548,8 @@
     <div class="result" id="result"></div>
   </div>
 
-  <div class="map-section" id="mapSection">
-    <h2>桌次位置圖</h2>
-    <div class="venue-map" aria-hidden="true">
-      <svg viewBox="0 0 260 320" xmlns="http://www.w3.org/2000/svg" id="mapSvg">
-        <text class="stage-label" x="130" y="14">舞　台　方　向</text>
-      </svg>
-    </div>
-  </div>
-
   <div class="castle-section" id="castleSection">
+    <span class="castle-stage-hint">舞　台　方　向</span>
     <span class="castle-eyebrow">婚 宴 桌 次 總 覽</span>
     <h2 class="castle-title">每一桌，都有屬於自己的故事</h2>
     <p class="castle-desc">主桌見證兩個家庭在這一天相聚，其餘桌次則以不同的迪士尼電影命名，紀念一路陪伴我們走到今天的家人與朋友。</p>
@@ -739,32 +679,6 @@
       return t === '主桌' ? '主桌' : t + '桌';
     }
 
-    var MAP_NODES = [
-      { t: '主桌', s: 'head', x: 130, y: 42, r: 17 },
-      { t: '女1', s: 'bride', x: 58, y: 110, r: 15 },
-      { t: '女2', s: 'bride', x: 58, y: 152, r: 15 },
-      { t: '女3', s: 'bride', x: 58, y: 194, r: 15 },
-      { t: '女4', s: 'bride', x: 58, y: 236, r: 15 },
-      { t: '女5', s: 'bride', x: 58, y: 278, r: 15 },
-      { t: '男1', s: 'groom', x: 202, y: 110, r: 15 },
-      { t: '男2', s: 'groom', x: 202, y: 152, r: 15 },
-      { t: '男3', s: 'groom', x: 202, y: 194, r: 15 },
-      { t: '男4', s: 'groom', x: 202, y: 236, r: 15 },
-      { t: '男5', s: 'groom', x: 202, y: 278, r: 15 }
-    ];
-
-    function renderMap(activeTable) {
-      var svg = document.getElementById('mapSvg');
-      var nodesHtml = MAP_NODES.map(function (n) {
-        var active = n.t === activeTable;
-        return '<g class="node ' + n.s + (active ? ' active' : '') + '">' +
-          '<circle cx="' + n.x + '" cy="' + n.y + '" r="' + n.r + '"/>' +
-          '<text x="' + n.x + '" y="' + (n.y + 1) + '">' + n.t + '</text>' +
-          '</g>';
-      }).join('');
-      svg.innerHTML = '<text class="stage-label" x="130" y="14">舞　台　方　向</text>' + nodesHtml;
-    }
-
     var CASTLE_THEMES = [
       { t: '女1', s: 'bride', cn: '花木蘭', en: 'Mulan',
         icon: '<path d="M12 3.2v13.6"/><path d="M9.3 6.2 12 3.2l2.7 3"/><path d="M8.4 15.2h7.2"/><path d="M12 16.8v3.4"/><circle cx="12" cy="21" r="1"/>' },
@@ -853,7 +767,6 @@
     var goBtn = document.getElementById('goBtn');
     var inlineHint = document.getElementById('inlineHint');
     var resultEl = document.getElementById('result');
-    var mapSection = document.getElementById('mapSection');
 
     // 1) digits only, 2) max 6 chars, 6) button enabled only at exactly 6 digits
     phoneInput.addEventListener('input', function () {
@@ -887,8 +800,6 @@
       retry.addEventListener('click', resetSearch);
       resultEl.appendChild(retry);
 
-      renderMap(entry.t);
-      mapSection.classList.add('show');
       renderCastle(entry);
     }
 
@@ -897,7 +808,6 @@
       box.className = 'msg-box';
       box.innerHTML = '<strong>' + strongText + '</strong>' + bodyHtml;
       resultEl.appendChild(box);
-      mapSection.classList.remove('show');
       hideCastle();
     }
 
@@ -930,7 +840,6 @@
     function resetSearch() {
       resultEl.classList.remove('show');
       resultEl.innerHTML = '';
-      mapSection.classList.remove('show');
       hideCastle();
       phoneInput.value = '';
       goBtn.disabled = true;
