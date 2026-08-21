@@ -371,6 +371,7 @@
     margin: 0 0 1.5rem;
   }
   .castle-head-card {
+    position: relative;
     width: 100%;
     max-width: 220px;
     background: #fffdf8;
@@ -414,10 +415,18 @@
   }
   .castle-head-card .your-tag {
     display: none;
+    position: absolute;
+    top: -9px;
+    right: -6px;
     font-size: 0.6rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
     font-weight: 700;
-    color: #8a6a1f;
+    color: #fff8ec;
+    background: #a97f2c;
+    padding: 0.22em 0.55em;
+    border-radius: 999px;
+    box-shadow: 0 3px 8px -2px rgba(203, 169, 102, 0.7);
+    white-space: nowrap;
   }
   .castle-head-card.active {
     background: linear-gradient(160deg, #fffaf0, #f0d998);
