@@ -451,6 +451,7 @@
   .castle-list { display: flex; flex-direction: column; gap: 0.55rem; }
 
   .castle-card {
+    position: relative;
     background: #fffdf8;
     border: 1.5px solid #ecdcb8;
     border-radius: 12px;
@@ -463,12 +464,23 @@
   }
   .castle-card .your-tag {
     display: none;
+    position: absolute;
+    top: -9px;
+    right: -6px;
     font-size: 0.6rem;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.03em;
     font-weight: 700;
-    color: var(--coral-deep);
+    color: #fff8ec;
+    background: var(--coral-deep);
+    padding: 0.22em 0.55em;
+    border-radius: 999px;
+    box-shadow: 0 3px 8px -2px rgba(184, 80, 47, 0.6);
+    white-space: nowrap;
   }
-  .castle-card.groom .your-tag { color: var(--plum-deep); }
+  .castle-card.groom .your-tag {
+    background: var(--plum-deep);
+    box-shadow: 0 3px 8px -2px rgba(74, 53, 105, 0.6);
+  }
 
   .castle-card .c-badge {
     font-family: var(--font-cjk-serif);
@@ -516,17 +528,23 @@
     transition: none;
   }
   .castle-card.bride.active {
+    background: linear-gradient(160deg, #fffaf0, #fbdcc8);
     border-color: var(--coral-deep);
-    box-shadow: 0 8px 18px -9px rgba(184, 80, 47, 0.6), 0 0 0 1.5px var(--coral-deep);
+    border-width: 2.5px;
+    box-shadow: 0 10px 22px -8px rgba(184, 80, 47, 0.65), 0 0 0 2px var(--coral-deep);
   }
   .castle-card.bride.active .c-badge { background: var(--coral-deep); color: #fff8ec; }
+  .castle-card.bride.active .c-cn { color: var(--coral-deep); }
   .castle-card.bride.active .your-tag { display: block; }
 
   .castle-card.groom.active {
+    background: linear-gradient(160deg, #fffaf0, #e2d5f0);
     border-color: var(--plum-deep);
-    box-shadow: 0 8px 18px -9px rgba(74, 53, 105, 0.6), 0 0 0 1.5px var(--plum-deep);
+    border-width: 2.5px;
+    box-shadow: 0 10px 22px -8px rgba(74, 53, 105, 0.65), 0 0 0 2px var(--plum-deep);
   }
   .castle-card.groom.active .c-badge { background: var(--plum-deep); color: #fff8ec; }
+  .castle-card.groom.active .c-cn { color: var(--plum-deep); }
   .castle-card.groom.active .your-tag { display: block; }
 
   .footer-links {
@@ -616,8 +634,7 @@
   </div>
 
   <p class="footer-links">
-    查不到桌次嗎？歡迎透過 <a href="https://lin.ee/sb76LiR" target="_blank" rel="noopener">LINE 官方帳號</a> 聯繫我們<br />
-    想先看看整體桌次主題，可以<a href="https://claude.ai/code/artifact/59da4a40-264f-4a07-be5b-80415669c5bb" target="_blank" rel="noopener">點這裡</a>
+    查不到桌次嗎？歡迎透過 <a href="https://lin.ee/sb76LiR" target="_blank" rel="noopener">LINE 官方帳號</a> 聯繫我們
   </p>
 </div>
 
